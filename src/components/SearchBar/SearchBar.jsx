@@ -3,7 +3,7 @@ import { IoIosSearch } from "react-icons/io";
 import toast, { Toaster } from "react-hot-toast";
 
 export default function SearchBar({ onSubmit }) {
-  const onSearch = (event) => {
+  const onSubmitBar = (event) => {
     event.preventDefault();
     const form = event.target;
     const data = form.elements.topic.value;
@@ -17,11 +17,11 @@ export default function SearchBar({ onSubmit }) {
 
   return (
     <header className={css.header}>
-      <form className={css.form} onSubmit={onSearch}>
+      <form className={css.form} onSubmit={onSubmitBar}>
         <input
           className={css.input}
           type="text"
-          name="name"
+          name="topic"
           autoComplete="off"
           autoFocus
           placeholder="Search images and photos"
