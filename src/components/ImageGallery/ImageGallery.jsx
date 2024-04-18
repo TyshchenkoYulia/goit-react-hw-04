@@ -1,14 +1,14 @@
-// import css from "./ImageGallery.module.css";
-// import ImageCard from "../ImageCard/ImageCard";
+import css from "./ImageGallery.module.css";
+import ImageCard from "../ImageCard/ImageCard";
 
-export default function ImageGallery() {
+export default function ImageGallery({ items }) {
   return (
-    <ul>
-      {/* {items.map((item) => (
-        <li key={}>
+    <ul className={css.list}>
+      {items.map((item) => (
+        <li key={item.objectID}>
           <ImageCard />
         </li>
-      ))} */}
+      ))}
     </ul>
   );
 }

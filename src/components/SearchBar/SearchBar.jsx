@@ -8,7 +8,7 @@ export default function SearchBar({ onSubmit }) {
     const form = event.target;
     const data = form.elements.topic.value;
     if (data.trim() === "") {
-      toast.error("Enter your value");
+      toast.error("Please, enter your request!");
       return;
     }
     onSubmit(data.trim());
