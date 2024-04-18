@@ -1,16 +1,57 @@
+import { useEffect, useState } from "react";
+import { fetchImages } from "./image-api";
+
 import SearchBar from "./components/SearchBar/SearchBar";
 import ImageGallery from "./components/ImageGallery/ImageGallery";
-import { useState } from "react";
-// import { fetchImages } from "./image-api";
+import Loader from "./components/Loader/Loader";
+import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
+import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 
 export default function App() {
   const [imgs, setImgs] = useState([]);
-  const handleSubmit = () => {};
+  const [query, setQuery] = useState("");
+  const [page, setPage] = useState(1);
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    if (!query) {
+      return;
+    }
+    const getImages = async () => {
+      try {
+        setError(false);
+        setLoading(true);
+
+        const newImgs = await fetchImages(query, page);
+        setImgs((prevImages) => [...prevImages, ...newImgs]);
+      } catch (error) {
+        setError(true);
+      } finally {
+        setLoading(true);
+      }
+    };
+    getImages();
+  }, [query, page]);
+
+  const handleSubmit = (query) => {
+    setQuery(query);
+    setPage(1);
+    setImgs([]);
+  };
+  const handleLoadMore = () => {
+    setPage(page + 1);
+  };
 
   return (
     <div>
       <SearchBar onSubmit={handleSubmit} />
       {imgs.length > 0 && <ImageGallery items={imgs} />}
+
+      {error && <ErrorMessage />}
+      {loading && <Loader />}
+      {imgs.length > 0 && !loading && <LoadMoreBtn onClick={handleLoadMore} />}
     </div>
   );
 }
