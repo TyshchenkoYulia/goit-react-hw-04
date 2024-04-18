@@ -29,7 +29,7 @@ export default function App() {
       } catch (error) {
         setError(true);
       } finally {
-        setLoading(true);
+        setLoading(false);
       }
     };
     getImages();
