@@ -3,12 +3,14 @@ import ImageCard from "../ImageCard/ImageCard";
 
 export default function ImageGallery({ items }) {
   return (
-    <ul className={css.list}>
-      {items.map((item) => (
-        <li key={item.objectID}>
-          <ImageCard />
-        </li>
-      ))}
-    </ul>
+    <div>
+      <ul className={css.list}>
+        {items.map((item) => (
+          <li key={item.id}>
+            <ImageCard />
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

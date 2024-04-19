@@ -25,6 +25,7 @@ export default function App() {
         setLoading(true);
 
         const newImgs = await fetchImages(query, page);
+        console.log(newImgs);
         setImgs((prevImages) => [...prevImages, ...newImgs]);
       } catch (error) {
         setError(true);
