@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { fetchImages } from "./image-api";
-import toast, { Toaster } from "react-hot-toast";
 
 import SearchBar from "./components/SearchBar/SearchBar";
 import ImageGallery from "./components/ImageGallery/ImageGallery";
@@ -20,13 +19,14 @@ export default function App() {
     if (!query) {
       return;
     }
+
     const getImages = async () => {
       try {
         setError(false);
         setLoading(true);
 
         const newImgs = await fetchImages(page, query);
-        console.log(newImgs);
+
         setImgs((prevImages) => [...prevImages, ...newImgs]);
       } catch (error) {
         setError(true);
@@ -41,7 +41,6 @@ export default function App() {
     setQuery(query);
     setPage(1);
     setImgs([]);
-    toast.error("Nothing found! Try again!");
   };
   const handleLoadMore = () => {
     setPage(page + 1);
@@ -50,7 +49,7 @@ export default function App() {
   return (
     <div>
       <SearchBar onSubmit={handleSubmit} />
-      <Toaster />
+
       {imgs.length > 0 && <ImageGallery items={imgs} />}
 
       {error && <ErrorMessage />}
