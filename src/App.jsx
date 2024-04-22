@@ -16,7 +16,7 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [modal, setModal] = useState(false);
-  const [imgUrl, setImgsUrl] = useState(null);
+  const [imgUrl, setImgsUrl] = useState([]);
 
   useEffect(() => {
     if (!query) {
@@ -51,13 +51,11 @@ export default function App() {
 
   const openModal = (url) => {
     setImgsUrl(url);
-    setModal(true);
+    toggle();
   };
-
-  const closeModal = () => {
-    setModal(false);
+  const toggle = () => {
+    setModal(!modal);
   };
-
   return (
     <div>
       <SearchBar onSubmit={handleSubmit} />
@@ -65,8 +63,16 @@ export default function App() {
       {imgs.length > 0 && <ImageGallery onImgClick={openModal} items={imgs} />}
       {error && <ErrorMessage />}
       {loading && <Loader />}
+
       {imgs.length > 0 && !loading && <LoadMoreBtn onClick={handleLoadMore} />}
-      <ImageModal image={imgUrl} imgModal={modal} onModalClose={closeModal} />
+      {modal && (
+        <ImageModal
+          image={imgUrl}
+          imgModal={modal}
+          item={imgs}
+          onModalClose={toggle}
+        />
+      )}
     </div>
   );
 }

@@ -14,5 +14,6 @@ export const fetchImages = async (currentPage, searchQuery) => {
       client_id: API_KEY,
     },
   });
+
   return response.data.results;
 };
