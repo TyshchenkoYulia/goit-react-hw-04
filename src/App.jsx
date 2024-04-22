@@ -19,7 +19,8 @@ export default function App() {
   const [modal, setModal] = useState(false);
   const [imgUrl, setImgsUrl] = useState([]);
 
-  const [likes, setLikes] = useState([]);
+  const [likes, setLikes] = useState({});
+  const [userName, setUserName] = useState({});
 
   useEffect(() => {
     if (!query) {
@@ -56,10 +57,12 @@ export default function App() {
     setPage(page + 1);
   };
 
-  const openModal = (url, likes) => {
-    // console.log(likes);
+  const openModal = (url, like, nameUser) => {
+    // console.log(like);
+    // console.log(nameUser);
     setImgsUrl(url);
-    setLikes(likes);
+    setLikes(like);
+    setUserName(nameUser);
     toggle();
   };
   const toggle = () => {
@@ -68,11 +71,10 @@ export default function App() {
   return (
     <div>
       <SearchBar onSubmit={handleSubmit} />
-      {notFoundError && <NotFoundError />}
       {imgs.length > 0 && <ImageGallery onImgClick={openModal} items={imgs} />}
+      {notFoundError && <NotFoundError />}
       {error && <ErrorMessage />}
       {loading && <Loader />}
-
       {imgs.length > 0 && !loading && <LoadMoreBtn onClick={handleLoadMore} />}
       {modal && (
         <ImageModal
@@ -81,6 +83,7 @@ export default function App() {
           item={imgs}
           onModalClose={toggle}
           imgLikes={likes}
+          user={userName}
         />
       )}
     </div>

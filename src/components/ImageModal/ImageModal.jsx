@@ -30,6 +30,7 @@ export default function ImageModal({
   onModalClose,
   image,
   imgLikes,
+  user,
 }) {
   return (
     <div>
@@ -48,7 +49,7 @@ export default function ImageModal({
           <ul className={css.list}>
             <li className={css.item}>
               <FaUserAlt color="rgb(51, 49, 49)" size="12" />
-              <p className={css.text}>{name}</p>
+              <p className={css.text}>{user}</p>
             </li>
             <li className={css.item}>
               <FcLike size="12" />
