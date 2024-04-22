@@ -7,16 +7,19 @@ import Loader from "./components/Loader/Loader";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import ImageModal from "./components/ImageModal/ImageModal";
+import NotFoundError from "./components/NotFoundError/NotFoundError";
 
 export default function App() {
   const [imgs, setImgs] = useState([]);
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
-
+  const [notFoundError, setNotFoundError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [modal, setModal] = useState(false);
   const [imgUrl, setImgsUrl] = useState([]);
+
+  const [likes, setLikes] = useState([]);
 
   useEffect(() => {
     if (!query) {
@@ -27,8 +30,12 @@ export default function App() {
       try {
         setError(false);
         setLoading(true);
+        setNotFoundError(false);
 
         const newImgs = await fetchImages(page, query);
+        if (newImgs.length === 0) {
+          setNotFoundError(true);
+        }
 
         setImgs((prevImages) => [...prevImages, ...newImgs]);
       } catch (error) {
@@ -49,8 +56,10 @@ export default function App() {
     setPage(page + 1);
   };
 
-  const openModal = (url) => {
+  const openModal = (url, likes) => {
+    // console.log(likes);
     setImgsUrl(url);
+    setLikes(likes);
     toggle();
   };
   const toggle = () => {
@@ -59,7 +68,7 @@ export default function App() {
   return (
     <div>
       <SearchBar onSubmit={handleSubmit} />
-
+      {notFoundError && <NotFoundError />}
       {imgs.length > 0 && <ImageGallery onImgClick={openModal} items={imgs} />}
       {error && <ErrorMessage />}
       {loading && <Loader />}
@@ -71,6 +80,7 @@ export default function App() {
           imgModal={modal}
           item={imgs}
           onModalClose={toggle}
+          imgLikes={likes}
         />
       )}
     </div>

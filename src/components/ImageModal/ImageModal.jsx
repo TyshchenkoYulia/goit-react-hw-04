@@ -4,6 +4,8 @@ import { FcLike } from "react-icons/fc";
 import { GrInstagram } from "react-icons/gr";
 import { FaUserAlt } from "react-icons/fa";
 
+Modal.setAppElement("#root");
+
 const customStyles = {
   content: {
     top: "50%",
@@ -27,7 +29,7 @@ export default function ImageModal({
   imgModal,
   onModalClose,
   image,
-  item: { alt_description, likes, user: name },
+  imgLikes,
 }) {
   return (
     <div>
@@ -36,7 +38,7 @@ export default function ImageModal({
         onRequestClose={onModalClose}
         style={customStyles}
       >
-        <img className={css.img} src={image} alt={alt_description} />
+        <img className={css.img} src={image} />
         <div className={css.textWrapper}>
           <GrInstagram
             className={css.inst}
@@ -50,7 +52,7 @@ export default function ImageModal({
             </li>
             <li className={css.item}>
               <FcLike size="12" />
-              <p className={css.text}>{likes}</p>
+              <p className={css.text}>{imgLikes}</p>
             </li>
           </ul>
         </div>
