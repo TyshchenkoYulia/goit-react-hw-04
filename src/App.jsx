@@ -19,8 +19,8 @@ export default function App() {
   const [modal, setModal] = useState(false);
   const [imgUrl, setImgsUrl] = useState([]);
 
-  const [likes, setLikes] = useState({});
-  const [userName, setUserName] = useState({});
+  const [likes, setLikes] = useState(null);
+  const [userName, setUserName] = useState(null);
 
   useEffect(() => {
     if (!query) {
@@ -34,6 +34,7 @@ export default function App() {
         setNotFoundError(false);
 
         const newImgs = await fetchImages(page, query);
+
         if (newImgs.length === 0) {
           setNotFoundError(true);
         }
@@ -53,21 +54,22 @@ export default function App() {
     setPage(1);
     setImgs([]);
   };
+
   const handleLoadMore = () => {
     setPage(page + 1);
   };
 
   const openModal = (url, like, nameUser) => {
-    // console.log(like);
-    // console.log(nameUser);
     setImgsUrl(url);
     setLikes(like);
     setUserName(nameUser);
     toggle();
   };
+
   const toggle = () => {
     setModal(!modal);
   };
+
   return (
     <div>
       <SearchBar onSubmit={handleSubmit} />

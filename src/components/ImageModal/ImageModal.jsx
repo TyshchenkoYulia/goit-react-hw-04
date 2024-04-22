@@ -14,6 +14,7 @@ const customStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
+    borderRadius: "30px",
   },
   overlay: {
     position: "fixed",
@@ -35,6 +36,7 @@ export default function ImageModal({
   return (
     <div>
       <Modal
+        className={css.container}
         isOpen={imgModal}
         onRequestClose={onModalClose}
         style={customStyles}
@@ -48,11 +50,11 @@ export default function ImageModal({
           />
           <ul className={css.list}>
             <li className={css.item}>
-              <FaUserAlt color="rgb(51, 49, 49)" size="12" />
+              <FaUserAlt color="rgb(51, 49, 49)" size="30" />
               <p className={css.text}>{user}</p>
             </li>
             <li className={css.item}>
-              <FcLike size="12" />
+              <FcLike size="30" />
               <p className={css.text}>{imgLikes}</p>
             </li>
           </ul>

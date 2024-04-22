@@ -19,7 +19,7 @@ export default function ImageCard({
           className={css.img}
           src={small}
           alt={alt_description}
-          onClick={() => onImgClick(regular)}
+          onClick={() => onImgClick(regular, likes, name)}
           width="210"
           height="130"
         />
